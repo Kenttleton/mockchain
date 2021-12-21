@@ -1,17 +1,14 @@
-use actix_web::{web, App, HttpRequest, HttpServer, Responder};
-use openssl::{
-    rsa::Rsa,
-    ssl::{SslAcceptor, SslFiletype, SslMethod},
-};
+use env_logger;
+use openssl::rsa::Rsa;
+use std;
 use std::fs::{File, OpenOptions};
 use std::io::prelude::*;
+use std::net::TcpListener;
+use std::thread::spawn;
 
-async fn index(_req: HttpRequest) -> impl Responder {
-    "Hello."
-}
-
-#[actix_web::main]
-pub async fn main() -> std::io::Result<()> {
+fn main() {
+    std::env::set_var("RUST_LOG", "actix_server=info,actix_web=info");
+    env_logger::init();
     let rsa = Rsa::generate(4096).unwrap();
     let private_key: Vec<u8> = rsa.private_key_to_pem().unwrap();
     let public_key: Vec<u8> = rsa.public_key_to_pem().unwrap();
@@ -32,18 +29,10 @@ pub async fn main() -> std::io::Result<()> {
     write_to_file(private_key_file, private_key);
     write_to_file(public_key_file, public_key);
 
-    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
-    builder
-        .set_private_key_file("./certs/private.pem", SslFiletype::PEM)
-        .unwrap();
-    builder
-        .set_certificate_chain_file("./certs/public.pem")
-        .unwrap();
-
-    HttpServer::new(|| App::new().route("/", web::get().to(index)))
-        .bind_openssl("0.0.0.0:8080", builder)?
-        .run()
-        .await
+    let server = TcpListener::bind("0.0.0.0:8546").unwrap();
+    for stream in server.incoming() {
+        spawn(move || stream);
+    }
 }
 
 fn write_to_file(mut buffer: File, data: Vec<u8>) -> std::io::Result<()> {
