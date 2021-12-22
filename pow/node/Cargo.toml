@@ -11,4 +11,4 @@ openssl = "*"
 serde = "*"
 serde_json = "*"
 env_logger = "*"
-cert_gen = {path = "../../cert-gen"}
+cert_gen = {path = "../../cert_gen"}

@@ -6,7 +6,7 @@ use cert_gen;
 fn main() {
     std::env::set_var("RUST_LOG", "actix_server=info,actix_web=info");
     env_logger::init();
-    cert_gen();
+    cert_gen::create();
     let server = TcpListener::bind("0.0.0.0:8546").unwrap();
     for stream in server.incoming() {
         spawn(move || stream);
