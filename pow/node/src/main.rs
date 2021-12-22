@@ -1,10 +1,10 @@
+use cert_gen;
 use env_logger;
 use std::net::TcpListener;
 use std::thread::spawn;
-use cert_gen;
 
 fn main() {
-    std::env::set_var("RUST_LOG", "actix_server=info,actix_web=info");
+    //std::env::set_var("RUST_LOG", "actix_server=info,actix_web=info");
     env_logger::init();
     cert_gen::create();
     let server = TcpListener::bind("0.0.0.0:8546").unwrap();

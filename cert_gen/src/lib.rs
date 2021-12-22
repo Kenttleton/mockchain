@@ -6,7 +6,7 @@ use std::io::prelude::*;
 const BITES: u32 = 4096;
 const PRIVATE_KEY_LOCATION: &str = "certs/private.pem";
 const PUBLIC_KEY_LOCATION: &str = "certs/public.pem";
-
+/// Creates a public and private key pair
 pub fn create() {
     let rsa = Rsa::generate(BITES).unwrap();
     let private_key: Vec<u8> = rsa.private_key_to_pem().unwrap();
