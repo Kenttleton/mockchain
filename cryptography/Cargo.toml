@@ -1,5 +1,5 @@
 [package]
-name = "cert_gen"
+name = "cryptography"
 version = "0.1.0"
 authors = ["Kent <utterback.kent.a@gmail.com>"]
 edition = "2018"
