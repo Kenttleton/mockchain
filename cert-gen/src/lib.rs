@@ -7,7 +7,7 @@ const BITES: u32 = 4096;
 const PRIVATE_KEY_LOCATION: &str = "certs/private.pem";
 const PUBLIC_KEY_LOCATION: &str = "certs/public.pem";
 
-fn main() {
+pub fn create() {
     let rsa = Rsa::generate(BITES).unwrap();
     let private_key: Vec<u8> = rsa.private_key_to_pem().unwrap();
     let public_key: Vec<u8> = rsa.public_key_to_pem().unwrap();
