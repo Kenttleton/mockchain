@@ -18,7 +18,7 @@ pub struct RSA {
     private: Key,
 }
 
-pub trait Algorithm {
+pub trait Utility {
     fn write_public_key_to_file(self, public_key_location: String) -> Self;
     fn write_private_key_to_file(self, private_key_location: String) -> Self;
 }
@@ -40,7 +40,7 @@ impl RSA {
         }
     }
 }
-impl Algorithm for RSA {
+impl Utility for RSA {
     fn write_public_key_to_file(mut self, key_location: String) -> Self {
         let mut options = OpenOptions::new();
         self.public.location = key_location;
