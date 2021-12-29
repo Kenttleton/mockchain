@@ -14,10 +14,8 @@ pub fn handler(buf: [u8; 1000000]) -> [u8; 1000000] {
 fn pad_from_str(arr: &mut [u8], s: &str) {
     let bytes = s.as_bytes();
     if bytes.len() <= 1000000 {
-        let mut i = 0;
-        for b in bytes {
+        for (i, b) in bytes.iter().enumerate() {
             arr[i] = *b;
-            i = i + 1;
         }
     } else {
         pad_from_str(arr, "ERROR: Padding parser failure.");

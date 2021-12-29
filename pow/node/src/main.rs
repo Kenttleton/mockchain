@@ -1,4 +1,4 @@
-use cryptography::RSA;
+//use cryptography::RSA;
 use ctrlc;
 use std::net::{Ipv4Addr, Ipv6Addr};
 mod blockchain;
@@ -12,7 +12,7 @@ fn main() {
     // std::env::set_var("RUST_LOG", "actix_server=info,actix_web=info");
     // env_logger::init();
     ctrlc::set_handler(move || std::process::exit(0)).expect("Error setting Ctrl-C handler");
-    let cert = RSA::new(4096);
+    //let cert = RSA::new(4096);
     let addresses = server::addresses::Addresses::new(IPV4, IPV6, PORT);
     server::listener(addresses, blockchain::handler);
 }
