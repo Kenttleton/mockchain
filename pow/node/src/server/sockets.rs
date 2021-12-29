@@ -5,7 +5,7 @@ pub fn listen_v4(socket: &UdpSocket, func: fn([u8; 1000000]) -> [u8; 1000000]) {
     loop {
         // 1 MB buffer per Bitcoin spec for a block size
         let mut buf = [0; 1000000];
-        let (amt, src) = socket.recv_from(&mut buf).unwrap();
+        let (amt, src) = socket.recv_from(&mut buf).expect("No Data Received");
         socket
             .send_to(&func(buf), &src)
             .expect("Error Sending Response");
@@ -15,22 +15,26 @@ pub fn listen_v4(socket: &UdpSocket, func: fn([u8; 1000000]) -> [u8; 1000000]) {
 
 #[cfg(windows)]
 pub fn bind_v4(addresses: &Addresses) -> UdpSocket {
-    UdpSocket::bind(&SocketAddr::from((addresses.local.v4, addresses.port))).unwrap()
+    UdpSocket::bind(&SocketAddr::from((addresses.local.v4, addresses.port)))
+        .expect("Failure to bind IPv4 on Windows")
 }
 
 #[cfg(unix)]
 pub fn bind_v4(addresses: &Addresses) -> UdpSocket {
-    UdpSocket::bind(SocketAddr::from((addresses.v4, addresses.port))).unwrap()
+    UdpSocket::bind(SocketAddr::from((addresses.v4, addresses.port)))
+        .expect("Failure to bind IPv4 on Unix")
 }
 
 #[cfg(windows)]
 pub fn bind_v6(addresses: &Addresses) -> UdpSocket {
-    UdpSocket::bind(SocketAddr::from((addresses.local.v6, addresses.port))).unwrap()
+    UdpSocket::bind(SocketAddr::from((addresses.local.v6, addresses.port)))
+        .expect("Failure to bind IPv6 on Windows")
 }
 
 #[cfg(unix)]
 pub fn bind_v6(addresses: &Addresses) -> UdpSocket {
-    UdpSocket::bind(SocketAddr::from((addresses.v6, addresses.port))).unwrap()
+    UdpSocket::bind(SocketAddr::from((addresses.v6, addresses.port)))
+        .expect("Failure to bind IPv6 on Unix")
 }
 
 #[cfg(windows)]
