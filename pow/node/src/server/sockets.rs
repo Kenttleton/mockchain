@@ -6,11 +6,23 @@ pub fn listen_v4(socket: &UdpSocket, func: fn([u8; 1000000]) -> [u8; 1000000]) {
         // 1 MB buffer per Bitcoin spec for a block size
         let mut buf = [0; 1000000];
         let (amt, src) = socket.recv_from(&mut buf).expect("No Data Received");
-        socket
-            .send_to(&func(buf), &src)
-            .expect("Error Sending Response");
-        println!("Source: {}\nAmount: {}", &src, &amt);
+        let res = func(buf);
+        println!(
+            "Source: {}\nAmount: {}\nResponse: {}",
+            &src,
+            &amt,
+            u8_to_string(&res)
+        );
+        socket.send_to(&res, &src).expect("Error Sending Response");
     }
+}
+
+fn u8_to_string(u8_arr: &[u8; 1000000]) -> String {
+    let mut message = String::new();
+    for x in u8_arr.iter() {
+        message.push(*x as char);
+    }
+    message
 }
 
 #[cfg(windows)]
