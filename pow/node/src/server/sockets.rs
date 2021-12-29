@@ -45,7 +45,7 @@ pub fn join_v4(socket: &UdpSocket, addresses: &Addresses) {
 }
 
 #[cfg(unix)]
-pub fn join_v4(socket: &UdpSocket) {}
+pub fn join_v4(socket: &UdpSocket, addresses: &Addresses) {}
 
 #[cfg(windows)]
 pub fn join_v6(socket: &UdpSocket, addresses: &Addresses) {
@@ -55,4 +55,4 @@ pub fn join_v6(socket: &UdpSocket, addresses: &Addresses) {
 }
 
 #[cfg(unix)]
-pub fn join_v6(socket: &UdpSocket) {}
+pub fn join_v6(socket: &UdpSocket, addresses: &Addresses) {}
