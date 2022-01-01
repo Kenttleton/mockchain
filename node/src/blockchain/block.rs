@@ -3,7 +3,6 @@ use serde_json;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Block {
-    current_hash: String,
     previous_hash: String,
     amount: f32,
     to_account: String,
@@ -15,7 +14,6 @@ pub struct Block {
 impl Block {
     pub fn new() -> Self {
         Block {
-            current_hash: String::new(),
             previous_hash: String::new(),
             amount: f32::MIN,
             to_account: String::new(),
