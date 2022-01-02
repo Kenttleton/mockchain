@@ -4,3 +4,9 @@ use serde::{Deserialize, Serialize};
 pub struct Account {
     id: String,
 }
+
+impl Account {
+    pub fn new() -> Self {
+        Account { id: String::new() }
+    }
+}
