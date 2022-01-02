@@ -1,25 +1,20 @@
+use crate::blockchain::transaction::Transaction;
 use serde::{Deserialize, Serialize};
 use serde_json;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Block {
     previous_hash: String,
-    amount: f32,
-    to_account: String,
-    from_account: String,
     creation_date: String,
-    transaction_date: String,
+    transactions: Vec<Transaction>,
 }
 
 impl Block {
     pub fn new() -> Self {
         Block {
             previous_hash: String::new(),
-            amount: f32::MIN,
-            to_account: String::new(),
-            from_account: String::new(),
             creation_date: String::new(),
-            transaction_date: String::new(),
+            transactions: Vec::new(),
         }
     }
     pub fn to_str(&self) -> String {

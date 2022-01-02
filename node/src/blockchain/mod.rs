@@ -1,5 +1,7 @@
 use crate::server::addresses::{Destination, NODE};
+pub mod accounts;
 mod block;
+pub mod transaction;
 
 pub fn handler(message: &str) -> (String, Destination) {
     let mut response: String = "PONG".to_string();
