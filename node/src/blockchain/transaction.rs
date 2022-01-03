@@ -1,9 +1,9 @@
 use crate::blockchain::account::Account;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone)]
 pub struct Transaction {
-    amount: f64,
+    amount: f32,
     to: Account,
     from: Account,
 }
@@ -11,7 +11,7 @@ pub struct Transaction {
 impl Transaction {
     pub fn new() -> Self {
         Transaction {
-            amount: 0.0_f64,
+            amount: 0.0_f32,
             to: Account::new(),
             from: Account::new(),
         }

@@ -5,7 +5,7 @@ use std::thread;
 mod blockchain;
 mod server;
 
-pub const PORT: u16 = 7645;
+pub const PORT: u16 = 60123;
 pub static IPV4: Ipv4Addr = Ipv4Addr::new(224, 0, 0, 123);
 pub static IPV6: Ipv6Addr = Ipv6Addr::new(0xFF02, 0, 0, 0, 0, 0, 0, 0x0123);
 const STACK_SIZE: usize = 2 * 1024 * 1024;

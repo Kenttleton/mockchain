@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone)]
 pub struct Account {
-    id: String,
+    id: [u8; 32],
 }
 
 impl Account {
     pub fn new() -> Self {
-        Account { id: String::new() }
+        Account { id: [0; 32] }
     }
 }

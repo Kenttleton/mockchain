@@ -10,6 +10,6 @@ pub fn handler(message: &str) -> (String, Destination) {
         Ok(b) => transaction = b,
         Err(e) => response = e.to_string(),
     }
-    println!("Message: {}", message);
+    println!("Transaction: {}", transaction.to_str());
     (response, NODE)
 }
